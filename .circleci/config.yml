@@ -1,24 +1,18 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@5.0.2
-  slack: circleci/slack@4.0.0
-
 jobs:
   build: # over here is the job name
-    executor: node/default
+    docker:
+      - image: cimg/docker:20.10.7
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: npm install
+          name: build docker image
+          command: docker build -t rohitdarekar816/rohit-portfolio:latest .
       - run:
-          name: Build project
-          command: npm run build
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
+          name: push docker image
+          command: docker push rohitdarekar816/rohit-portfolio:latest
+
 
 workflows:
   say_hello:
