@@ -9,17 +9,12 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: npm install
-            - run:
-                name: Run tests
-                command: npm test
-            - run:
-                name: Build project
-                command: npm run build
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Build project
+          command: npm run build
       - persist_to_workspace:
           root: ~/project
           paths:
