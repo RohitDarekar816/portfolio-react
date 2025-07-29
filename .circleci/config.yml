@@ -1,11 +1,29 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.0.2
+  slack: circleci/slack@4.0.0
+
 jobs:
   build: # over here is the job name
-    docker:
-      - image: docker/whalesay
+    executor: node/default
     steps:
-      - run: cowsay boo
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: npm install
+            - run:
+                name: Run tests
+                command: npm test
+            - run:
+                name: Build project
+                command: npm run build
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
 
 workflows:
   say_hello:
