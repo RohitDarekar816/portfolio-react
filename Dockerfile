@@ -18,5 +18,5 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json ./
 COPY --from=deps /app/node_modules ./node_modules
 
-EXPOSE 3000
-CMD ["npm", "start"]
+# start the application via command npm run dev
+CMD ["npm", "run", "--host 0.0.0.0", "dev"]

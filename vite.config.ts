@@ -8,4 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: '/portfolio-react/', // Change this to your desired base path
 })

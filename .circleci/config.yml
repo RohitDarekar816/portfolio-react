@@ -1,20 +1,35 @@
 version: 2.1
 
-jobs:
-  build: # over here is the job name
+executors:
+  docker-executor:
     docker:
-      - image: docker:latest
+      - image: cimg/base:stable
+    working_directory: ~/project
+
+jobs:
+  build:
+    executor: docker-executor
     steps:
       - checkout
+
+      - setup_remote_docker:
+          version: 20.10.24
+          docker_layer_caching: true
+
       - run:
-          name: build docker image
+          name: Build Docker image
           command: docker build -t rohitdarekar816/rohit-portfolio:latest .
+
       - run:
-          name: push docker image
+          name: Authenticate with Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+
+      - run:
+          name: Push Docker image
           command: docker push rohitdarekar816/rohit-portfolio:latest
 
-
 workflows:
-  say_hello:
+  build_and_push:
     jobs:
       - build
