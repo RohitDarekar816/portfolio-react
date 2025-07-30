@@ -24,7 +24,7 @@ function Header() {
           <span className={`block w-6 h-0.5 bg-[#C778DD] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
         </button>
         {/* Nav links */}
-        <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
+        <nav className="hidden md:flex items-center space-x-4 lg:space-x-2">
           <span className="text-[#C778DD]">#</span>
           <span className="font-medium text-white">home</span>
           <span className="text-[#C778DD] font-normal">#</span>
